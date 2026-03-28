@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elevate Online Success | AI for Beginners - Workshops & Events</title>
+  <meta name="description" content="Learn AI tools for content creators. Free beginner-friendly workshops to build, automate, and grow your online presence with AI.">
+  <link rel="canonical" href="https://www.elevateonlinesuccess.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-primary: #0d0d1a;
+      --bg-secondary: #12122a;
+      --bg-card: rgba(255, 255, 255, 0.04);
+      --bg-card-hover: rgba(255, 255, 255, 0.07);
+      --text-primary: #ffffff;
+      --text-secondary: rgba(255, 255, 255, 0.7);
+      --text-muted: rgba(255, 255, 255, 0.5);
+      --accent-purple: #a855f7;
+      --accent-blue: #38bdf8;
+      --accent-green: #34d399;
+      --accent-pink: #ec4899;
+      --accent-orange: #f97316;
+      --accent-yellow: #facc15;
+      --gradient-purple: linear-gradient(135deg, #a855f7, #7c3aed);
+      --gradient-blue: linear-gradient(135deg, #38bdf8, #6366f1);
+      --gradient-green: linear-gradient(135deg, #34d399, #10b981);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(168, 85, 247, 0.3);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Background pattern */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(168, 85, 247, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(56, 189, 248, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 80%, rgba(236, 72, 153, 0.05) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(13, 13, 26, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 0 2rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-weight: 800;
+      font-size: 1.25rem;
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+    }
+
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+
+    .nav-cta {
+      background: var(--gradient-purple) !important;
+      color: white !important;
+      padding: 0.5rem 1.25rem;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    .mobile-toggle { display: none; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
+
+    /* ===== SECTIONS ===== */
+    section { position: relative; z-index: 1; }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(168, 85, 247, 0.15);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      color: var(--accent-purple);
+      padding: 0.4rem 1.2rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 .gradient-text {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 3rem;
+    }
+
+    .hero-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+    }
+
+    .hero-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      transition: border-color 0.3s, transform 0.3s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .hero-card:hover {
+      border-color: var(--border-glow);
+      transform: translateY(-2px);
+    }
+
+    .hero-card .badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--accent-yellow), var(--accent-orange));
+      color: #000;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .hero-card .date {
+      color: var(--accent-blue);
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.25rem;
+    }
+
+    .hero-card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .hero-card .detail {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-card .cta-link {
+      color: var(--accent-blue);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .hero-credit {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-top: 1rem;
+    }
+    .hero-credit a {
+      color: var(--accent-green);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* ===== HOW IT WORKS ===== */
+    .how-it-works { padding: 6rem 0; }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      margin-bottom: 3rem;
+    }
+    .section-title .highlight {
+      color: var(--accent-purple);
+    }
+
+    .steps {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: wrap;
+      padding: 0 1rem;
+    }
+
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 140px;
+    }
+
+    .step-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+      position: relative;
+    }
+
+    .step-icon.purple { background: rgba(168, 85, 247, 0.15); border: 2px solid rgba(168, 85, 247, 0.4); }
+    .step-icon.blue { background: rgba(56, 189, 248, 0.15); border: 2px solid rgba(56, 189, 248, 0.4); }
+    .step-icon.green { background: rgba(52, 211, 153, 0.15); border: 2px solid rgba(52, 211, 153, 0.4); }
+    .step-icon.pink { background: rgba(236, 72, 153, 0.15); border: 2px solid rgba(236, 72, 153, 0.4); }
+    .step-icon.orange { background: rgba(249, 115, 22, 0.15); border: 2px solid rgba(249, 115, 22, 0.4); }
+    .step-icon.yellow { background: rgba(250, 204, 21, 0.15); border: 2px solid rgba(250, 204, 21, 0.4); }
+
+    .step h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .step p { font-size: 0.75rem; color: var(--text-muted); }
+
+    .step-arrow {
+      display: flex;
+      align-items: center;
+      padding-top: 1.5rem;
+      color: var(--text-muted);
+      font-size: 1.2rem;
+    }
+
+    /* ===== CAROUSEL ===== */
+    .what-you-build {
+      padding: 6rem 0;
+      background: var(--bg-secondary);
+    }
+
+    .section-desc {
+      text-align: center;
+      color: var(--text-secondary);
+      max-width: 650px;
+      margin: -1.5rem auto 2.5rem;
+      font-size: 1.05rem;
+    }
+
+    .carousel-wrapper {
+      position: relative;
+      max-width: 1100px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 1.25rem;
+      transition: transform 0.4s ease;
+      padding: 0.5rem 0;
+    }
+
+    .carousel-card {
+      min-width: 260px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-top: 3px solid;
+      border-radius: 12px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      flex-shrink: 0;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .carousel-card:hover { transform: translateY(-4px); }
+    .carousel-card:nth-child(1) { border-top-color: var(--accent-pink); }
+    .carousel-card:nth-child(2) { border-top-color: var(--accent-blue); }
+    .carousel-card:nth-child(3) { border-top-color: var(--accent-green); }
+    .carousel-card:nth-child(4) { border-top-color: var(--accent-purple); }
+    .carousel-card:nth-child(5) { border-top-color: var(--accent-orange); }
+    .carousel-card:nth-child(6) { border-top-color: var(--accent-yellow); }
+    .carousel-card:nth-child(7) { border-top-color: var(--accent-pink); }
+
+    .carousel-card .card-emoji { font-size: 2.5rem; margin-bottom: 0.75rem; }
+    .carousel-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .carousel-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--border-subtle);
+      background: rgba(13, 13, 26, 0.9);
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+      transition: background 0.2s;
+    }
+    .carousel-btn:hover { background: rgba(168, 85, 247, 0.3); }
+    .carousel-btn.prev { left: 0; }
+    .carousel-btn.next { right: 0; }
+
+    /* ===== FAQ ===== */
+    .faq { padding: 6rem 0; }
+
+    .faq-list {
+      max-width: 750px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
+    .faq-item.open { border-color: rgba(168, 85, 247, 0.3); }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      padding: 1.25rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: inherit;
+    }
+    .faq-question:hover { color: var(--accent-purple); }
+
+    .faq-icon {
+      font-size: 1.25rem;
+      transition: transform 0.3s;
+      flex-shrink: 0;
+      margin-left: 1rem;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+    .faq-item.open .faq-answer {
+      max-height: 300px;
+    }
+
+    .faq-answer-inner {
+      padding: 0 1.5rem 1.25rem;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    /* ===== HOST A WORKSHOP ===== */
+    .host-workshop {
+      padding: 6rem 0;
+      background: var(--bg-secondary);
+    }
+
+    .host-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .host-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .host-card:hover {
+      border-color: var(--border-glow);
+      transform: translateY(-2px);
+    }
+
+    .host-card .tag {
+      display: inline-block;
+      padding: 0.3rem 0.9rem;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+    .host-card:nth-child(1) .tag { background: var(--accent-purple); color: #fff; }
+    .host-card:nth-child(2) .tag { background: var(--accent-pink); color: #fff; }
+    .host-card:nth-child(3) .tag { background: var(--accent-green); color: #000; }
+
+    .host-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .host-card p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; }
+
+    .host-cta {
+      text-align: center;
+      margin-top: 3rem;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--gradient-purple);
+      color: white;
+      padding: 0.85rem 2.5rem;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+
+    /* ===== STAY CONNECTED ===== */
+    .stay-connected {
+      padding: 5rem 0;
+    }
+
+    .connected-box {
+      max-width: 700px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(99, 102, 241, 0.15));
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: 20px;
+      padding: 3rem;
+      text-align: center;
+    }
+
+    .connected-box h2 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+    }
+
+    .connected-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-discord {
+      background: var(--gradient-purple);
+      color: white;
+      padding: 0.75rem 1.75rem;
+      border-radius: 10px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-discord:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    .btn-email {
+      background: var(--gradient-green);
+      color: #000;
+      padding: 0.75rem 1.75rem;
+      border-radius: 10px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-email:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      padding: 3rem 2rem;
+      text-align: center;
+      border-top: 1px solid var(--border-subtle);
+    }
+    footer p {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    footer a {
+      color: var(--accent-purple);
+      text-decoration: none;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: rgba(13, 13, 26, 0.95);
+        backdrop-filter: blur(20px);
+        padding: 1.5rem 2rem;
+        gap: 1rem;
+        border-bottom: 1px solid var(--border-subtle);
+      }
+      .mobile-toggle { display: block; }
+
+      .hero-cards { grid-template-columns: 1fr; }
+
+      .steps { gap: 0.25rem; }
+      .step { width: 100px; }
+      .step-icon { width: 60px; height: 60px; font-size: 1.5rem; }
+      .step-arrow { display: none; }
+
+      .host-grid { grid-template-columns: 1fr; }
+
+      .connected-btns { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">Elevate Online Success</a>
+    <div class="nav-links" id="navLinks">
+      <a href="#how-it-works">How it Works</a>
+      <a href="#what-you-build">What You Can Build</a>
+      <a href="#faq">FAQ</a>
+      <a href="#host">Book a Workshop</a>
+      <a href="https://preview.mailerlite.io/forms/2211868/183217235853051090/share" target="_blank" rel="noopener" class="nav-cta">Get Free Access</a>
+    </div>
+    <button class="mobile-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Toggle menu">&#9776;</button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="register">
+    <div>
+      <div class="hero-badge">AI for Beginners</div>
+      <h1>
+        Creators Can Now Build<br>
+        <span class="gradient-text">Anything with AI.</span>
+      </h1>
+      <p class="hero-sub">Learn how to use AI tools to automate, create, and grow your online business. No coding required.</p>
+
+      <div class="hero-cards">
+        <a href="https://preview.mailerlite.io/forms/2211868/183217235853051090/share" class="hero-card" target="_blank" rel="noopener">
+          <div class="badge">Free Workshop</div>
+          <div class="date">Next Session Coming Soon</div>
+          <h3>Hands-On AI Workshop</h3>
+          <div class="detail">Live Online</div>
+          <div class="cta-link">Register Free &rarr;</div>
+        </a>
+        <div class="hero-card">
+          <div class="date">Weekly on YouTube</div>
+          <h3>AI Creator Sessions</h3>
+          <div class="detail">No Registration Required</div>
+          <div class="cta-link">
+            <a href="https://www.youtube.com/@AutomateHerGrowth" target="_blank" rel="noopener" style="color: var(--accent-blue); text-decoration: none; font-weight: 600;">YouTube &rarr;</a>
+          </div>
+        </div>
+      </div>
+
+      <p class="hero-credit">Hosted by <a href="https://www.youtube.com/@AutomateHerGrowth" target="_blank" rel="noopener">Heidi</a></p>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="container">
+      <h2 class="section-title">What to <span class="highlight">Expect</span></h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-icon pink">&#127915;</div>
+          <h4>Sign Up Free</h4>
+          <p>Grab your spot</p>
+        </div>
+        <div class="step-arrow">&rarr;</div>
+        <div class="step">
+          <div class="step-icon blue">&#128187;</div>
+          <h4>Bring a Device</h4>
+          <p>Laptop or tablet</p>
+        </div>
+        <div class="step-arrow">&rarr;</div>
+        <div class="step">
+          <div class="step-icon green">&#129302;</div>
+          <h4>Learn AI Tools</h4>
+          <p>Guided walkthrough</p>
+        </div>
+        <div class="step-arrow">&rarr;</div>
+        <div class="step">
+          <div class="step-icon purple">&#9889;</div>
+          <h4>Build Something</h4>
+          <p>Create in 2 hours</p>
+        </div>
+        <div class="step-arrow">&rarr;</div>
+        <div class="step">
+          <div class="step-icon orange">&#128640;</div>
+          <h4>Share & Launch</h4>
+          <p>Show what you made</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT YOU CAN BUILD -->
+  <section class="what-you-build" id="what-you-build">
+    <div class="container">
+      <h2 class="section-title">What Creators <span class="highlight">Build</span> with AI</h2>
+      <p class="section-desc">AI lets you build tools, content, and automations just by describing what you want. Here's what our community has created:</p>
+
+      <div class="carousel-wrapper">
+        <button class="carousel-btn prev" onclick="scrollCarousel(-1)" aria-label="Scroll left">&larr;</button>
+        <div class="carousel-track" id="carouselTrack">
+          <div class="carousel-card">
+            <div class="card-emoji">&#127916;</div>
+            <h3>Content Tools</h3>
+            <p>Thumbnail generators, script outlines, title optimizers, and content calendars built with plain English prompts.</p>
+          </div>
+          <div class="carousel-card">
+            <div class="card-emoji">&#129520;</div>
+            <h3>Automation Bots</h3>
+            <p>Email responders, social media schedulers, and workflow automations that run while you sleep.</p>
+          </div>
+          <div class="carousel-card">
+            <div class="card-emoji">&#127912;</div>
+            <h3>Visual & Creative</h3>
+            <p>Custom graphics, brand assets, interactive visuals, and AI-generated art for your content.</p>
+          </div>
+          <div class="carousel-card">
+            <div class="card-emoji">&#128202;</div>
+            <h3>Business Dashboards</h3>
+            <p>Analytics trackers, revenue calculators, and KPI dashboards tailored to your creator business.</p>
+          </div>
+          <div class="carousel-card">
+            <div class="card-emoji">&#128172;</div>
+            <h3>AI Chatbots</h3>
+            <p>Custom support bots for your community, FAQ responders, and personalized AI assistants.</p>
+          </div>
+          <div class="carousel-card">
+            <div class="card-emoji">&#127760;</div>
+            <h3>Landing Pages</h3>
+            <p>Full websites, lead capture pages, and portfolio sites created in under 2 hours from a description.</p>
+          </div>
+          <div class="carousel-card">
+            <div class="card-emoji">&#128161;</div>
+            <h3>Your Next Idea</h3>
+            <p>The only limit is what you can describe. You're 2 hours away from a working prototype.</p>
+          </div>
+        </div>
+        <button class="carousel-btn next" onclick="scrollCarousel(1)" aria-label="Scroll right">&rarr;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <h2 class="section-title">Frequently Asked <span class="highlight">Questions</span></h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Do I need any technical skills to join?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Not at all. These workshops are designed for complete beginners. If you can type a sentence, you can build with AI. We walk you through every step and the tools respond to plain English.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Is this really free?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Yes. Our workshops are kept free for attendees through community sponsors. No credit card, no upsell during the session. Just show up and build.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            What will I actually walk away with?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">A working project or prototype. Past attendees have built landing pages, content tools, automation bots, and custom dashboards in a single 2-hour session.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            What AI tools do you teach?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">We cover a range of AI-powered creation tools that are free or low-cost. The specific tools vary by session, but we focus on ones that let you build real things with natural language prompts.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Can you run a private workshop for my team or community?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Yes. We offer custom workshops for teams, creator communities, schools, and businesses. Reach out below to discuss what works for your group.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOST A WORKSHOP -->
+  <section class="host-workshop" id="host">
+    <div class="container">
+      <h2 class="section-title">Bring AI Training <span class="highlight">to Your Group</span></h2>
+      <p class="section-desc">We run custom AI workshops for teams, communities, and organizations worldwide. Beginner-friendly, always hands-on.</p>
+
+      <div class="host-grid">
+        <div class="host-card">
+          <span class="tag">Creator Communities</span>
+          <h3>Level Up Your Members</h3>
+          <p>Give your community hands-on AI skills they can use immediately. We bring the curriculum, the energy, and the tools. Your members leave with real projects.</p>
+        </div>
+        <div class="host-card">
+          <span class="tag">Companies & Teams</span>
+          <h3>Internal Innovation Sprint</h3>
+          <p>Move your team from watching AI demos to actually building with it. A 2-hour session that turns passive learners into active creators.</p>
+        </div>
+        <div class="host-card">
+          <span class="tag">Schools & Educators</span>
+          <h3>AI Literacy for All Ages</h3>
+          <p>We make AI approachable and fun for students and educators. Show learners that building software is a creative act, not a daunting technical hurdle.</p>
+        </div>
+      </div>
+
+      <div class="host-cta">
+        <a href="mailto:lynnheidi@gmail.com" class="btn-primary">Join Waiting List</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STAY CONNECTED -->
+  <section class="stay-connected">
+    <div class="container">
+      <div class="connected-box">
+        <h2>Stay Connected</h2>
+        <div class="connected-btns">
+          <a href="https://www.facebook.com/itslynnheidi" target="_blank" rel="noopener" class="btn-discord">Join on Facebook</a>
+          <a href="https://preview.mailerlite.io/forms/2211868/183217235853051090/share" target="_blank" rel="noopener" class="btn-email">Get Email Updates</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2026 Elevate Online Success. All rights reserved.</p>
+    <p style="margin-top: 0.5rem;">AI for Beginners. No experience required. | <a href="mailto:lynnheidi@gmail.com">Contact Heidi</a></p>
+  </footer>
+
+  <script>
+    // Carousel
+    function scrollCarousel(direction) {
+      const track = document.getElementById('carouselTrack');
+      const cardWidth = track.querySelector('.carousel-card').offsetWidth + 20;
+      track.scrollBy({ left: direction * cardWidth * 2, behavior: 'smooth' });
+    }
+
+    // Make carousel track scrollable
+    document.addEventListener('DOMContentLoaded', () => {
+      const track = document.getElementById('carouselTrack');
+      track.style.overflowX = 'auto';
+      track.style.scrollbarWidth = 'none';
+      track.style.msOverflowStyle = 'none';
+      // Hide scrollbar for Chrome
+      const style = document.createElement('style');
+      style.textContent = '#carouselTrack::-webkit-scrollbar { display: none; }';
+      document.head.appendChild(style);
+    });
+
+    // FAQ Accordion
+    function toggleFaq(btn) {
+      const item = btn.parentElement;
+      const wasOpen = item.classList.contains('open');
+
+      // Close all
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+
+      // Toggle clicked
+      if (!wasOpen) item.classList.add('open');
+    }
+
+    // Close mobile nav on link click
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navLinks').classList.remove('open');
+      });
+    });
+  </script>
+
+</body>
+</html>
