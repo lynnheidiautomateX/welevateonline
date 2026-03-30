@@ -922,30 +922,30 @@
       track.scrollBy({ left: direction * cardWidth * 2, behavior: 'smooth' });
     }
 
-    // Auto-scroll carousel
+    // Continuous smooth carousel scroll
     (function() {
       var track = document.getElementById('carouselTrack');
       if (!track) return;
-      var autoScrollId = null;
-      function startAuto() {
-        autoScrollId = setInterval(function() {
-          var card = track.querySelector('.carousel-card');
-          if (!card) return;
-          var cardWidth = card.offsetWidth + 20;
-          // If near the end, loop back to start
-          if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 10) {
-            track.scrollTo({ left: 0, behavior: 'smooth' });
-          } else {
-            track.scrollBy({ left: cardWidth, behavior: 'smooth' });
+      var speed = 0.5; // pixels per frame
+      var animId = null;
+      var paused = false;
+
+      function step() {
+        if (!paused) {
+          track.scrollLeft += speed;
+          // Loop back seamlessly when near end
+          if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 1) {
+            track.scrollLeft = 0;
           }
-        }, 3000);
+        }
+        animId = requestAnimationFrame(step);
       }
-      function stopAuto() { clearInterval(autoScrollId); }
-      track.addEventListener('mouseenter', stopAuto);
-      track.addEventListener('mouseleave', startAuto);
-      track.addEventListener('touchstart', stopAuto);
-      track.addEventListener('touchend', function() { setTimeout(startAuto, 3000); });
-      startAuto();
+
+      track.addEventListener('mouseenter', function() { paused = true; });
+      track.addEventListener('mouseleave', function() { paused = false; });
+      track.addEventListener('touchstart', function() { paused = true; });
+      track.addEventListener('touchend', function() { setTimeout(function() { paused = false; }, 2000); });
+      animId = requestAnimationFrame(step);
     })();
 
     // FAQ Accordion
