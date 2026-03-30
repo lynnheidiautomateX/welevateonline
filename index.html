@@ -56,7 +56,7 @@
       <a href="#what-you-build">What You Can Build</a>
       <a href="#faq">FAQ</a>
       <a href="#host">Book a Workshop</a>
-      <a href="#register" class="nav-cta">Get Free Access</a>
+      <a href="#" class="nav-cta" onclick="openQuiz(); return false;">Take the Quiz</a>
     </div>
     <button class="mobile-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Toggle menu">&#9776;</button>
   </nav>
@@ -309,6 +309,29 @@
     <p>&copy; 2026 ScaleLab AI. All rights reserved.</p>
     <p style="margin-top: 0.5rem;">AI for Beginners. No experience required. | <a href="mailto:support@lynnheidi.com">Contact Heidi</a></p>
   </footer>
+
+  <!-- QUIZ MODAL -->
+  <div id="quizModal" class="quiz-overlay" style="display:none;" onclick="if(event.target===this)closeQuiz()">
+    <div class="quiz-container">
+      <button class="quiz-close" onclick="closeQuiz()" aria-label="Close quiz">&times;</button>
+
+      <!-- Questions -->
+      <div id="quizQuestions">
+        <div class="quiz-progress"><span id="quizStep">1</span> of 3</div>
+        <div id="quizQ" class="quiz-question-text"></div>
+        <div id="quizOptions" class="quiz-options"></div>
+      </div>
+
+      <!-- Result -->
+      <div id="quizResult" style="display:none;" class="quiz-result">
+        <div id="quizResultEmoji" class="quiz-result-emoji"></div>
+        <h3 id="quizResultTitle" class="quiz-result-title"></h3>
+        <p id="quizResultMsg" class="quiz-result-msg"></p>
+        <a href="#register" class="btn-primary" onclick="closeQuiz()" style="margin-top: 1.5rem; display: inline-block;">Join the Waitlist</a>
+        <button onclick="resetQuiz()" style="display:block; margin: 1rem auto 0; background:none; border:none; color:var(--text-muted); font-size:0.85rem; cursor:pointer; font-family:inherit; text-decoration:underline;">Retake Quiz</button>
+      </div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 

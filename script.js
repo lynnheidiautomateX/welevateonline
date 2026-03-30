@@ -80,3 +80,121 @@ document.querySelectorAll('.nav-links a').forEach(link => {
     document.getElementById('navLinks').classList.remove('open');
   });
 });
+
+// ===== QUIZ =====
+var quizData = [
+  {
+    q: "What's your biggest challenge right now?",
+    options: [
+      { text: "I spend all day on repetitive tasks and never get to the big stuff", type: "A" },
+      { text: "I have a million ideas but none of them are built yet", type: "B" },
+      { text: "I've got things running but I know AI could take it further", type: "C" }
+    ]
+  },
+  {
+    q: "When you hear \"AI tools,\" what's your first reaction?",
+    options: [
+      { text: "Sounds great but I barely have time to learn something new", type: "A" },
+      { text: "I'm excited but I don't know where to start", type: "B" },
+      { text: "I've tried a few but want to go deeper", type: "C" }
+    ]
+  },
+  {
+    q: "What would make the biggest difference for you this month?",
+    options: [
+      { text: "Getting 5 hours back in my week", type: "A" },
+      { text: "Turning one of my ideas into something real", type: "B" },
+      { text: "Automating or scaling what's already working", type: "C" }
+    ]
+  }
+];
+
+var quizResults = {
+  A: {
+    emoji: "&#128165;",
+    title: "The Overwhelmed Operator",
+    msg: "You're doing too much by hand. Your first win with AI is automating the tasks that drain your energy. In our workshops, you'll build your first automation in 45 minutes.",
+    color: "pink"
+  },
+  B: {
+    emoji: "&#128161;",
+    title: "The Idea Machine",
+    msg: "You don't lack creativity. You lack a build system. In our workshops, you'll go from idea to working prototype in a single session. No code, no overwhelm.",
+    color: "blue"
+  },
+  C: {
+    emoji: "&#128640;",
+    title: "The System Scaler",
+    msg: "You've got the foundation. Now it's time to plug in AI and multiply your output. Our workshops will show you how to layer AI into what you've already built.",
+    color: "green"
+  }
+};
+
+var quizAnswers = [];
+var quizStep = 0;
+
+function openQuiz() {
+  quizAnswers = [];
+  quizStep = 0;
+  document.getElementById('quizModal').style.display = 'flex';
+  document.getElementById('quizQuestions').style.display = 'block';
+  document.getElementById('quizResult').style.display = 'none';
+  document.body.style.overflow = 'hidden';
+  renderQuestion();
+}
+
+function closeQuiz() {
+  document.getElementById('quizModal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+function renderQuestion() {
+  var data = quizData[quizStep];
+  document.getElementById('quizStep').textContent = quizStep + 1;
+  document.getElementById('quizQ').textContent = data.q;
+  var optionsEl = document.getElementById('quizOptions');
+  optionsEl.innerHTML = '';
+  data.options.forEach(function(opt) {
+    var btn = document.createElement('button');
+    btn.className = 'quiz-option';
+    btn.textContent = opt.text;
+    btn.onclick = function() { selectAnswer(opt.type); };
+    optionsEl.appendChild(btn);
+  });
+}
+
+function selectAnswer(type) {
+  quizAnswers.push(type);
+  quizStep++;
+  if (quizStep < quizData.length) {
+    renderQuestion();
+  } else {
+    showResult();
+  }
+}
+
+function showResult() {
+  var counts = { A: 0, B: 0, C: 0 };
+  quizAnswers.forEach(function(a) { counts[a]++; });
+
+  var winner = quizAnswers[0]; // tiebreaker = Q1
+  if (counts.A > counts[winner]) winner = 'A';
+  if (counts.B > counts[winner]) winner = 'B';
+  if (counts.C > counts[winner]) winner = 'C';
+
+  var result = quizResults[winner];
+  document.getElementById('quizQuestions').style.display = 'none';
+  document.getElementById('quizResult').style.display = 'block';
+  document.getElementById('quizResultEmoji').innerHTML = result.emoji;
+  document.getElementById('quizResultTitle').textContent = result.title;
+  document.getElementById('quizResultTitle').className = 'quiz-result-title ' + result.color;
+  document.getElementById('quizResultMsg').textContent = result.msg;
+}
+
+function resetQuiz() {
+  quizAnswers = [];
+  quizStep = 0;
+  document.getElementById('quizQuestions').style.display = 'block';
+  document.getElementById('quizResult').style.display = 'none';
+  renderQuestion();
+}
