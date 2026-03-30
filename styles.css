@@ -590,6 +590,7 @@ footer a {
   .host-grid { grid-template-columns: 1fr; }
 
   .connected-btns { flex-direction: column; align-items: center; }
+  .who-grid { grid-template-columns: 1fr !important; }
 }
 
 /* Focus visible for keyboard navigation */
