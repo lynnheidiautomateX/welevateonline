@@ -29,6 +29,26 @@ body {
   color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
+  opacity: 0;
+  animation: pageReveal 0.6s ease-out 0.15s forwards;
+}
+
+/* Page load: smooth reveal prevents layout shift while fonts load */
+@keyframes pageReveal {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hero section staggered entrance */
+.hero-badge { animation: fadeUp 0.5s ease-out 0.3s both; }
+.hero h1 { animation: fadeUp 0.5s ease-out 0.4s both; }
+.hero-sub { animation: fadeUp 0.5s ease-out 0.5s both; }
+.hero-cards { animation: fadeUp 0.5s ease-out 0.6s both; }
+.hero-credit { animation: fadeUp 0.5s ease-out 0.7s both; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* Background pattern */
