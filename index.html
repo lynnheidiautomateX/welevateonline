@@ -922,7 +922,31 @@
       track.scrollBy({ left: direction * cardWidth * 2, behavior: 'smooth' });
     }
 
-    // Carousel scrollbar hiding is now handled in CSS
+    // Auto-scroll carousel
+    (function() {
+      var track = document.getElementById('carouselTrack');
+      if (!track) return;
+      var autoScrollId = null;
+      function startAuto() {
+        autoScrollId = setInterval(function() {
+          var card = track.querySelector('.carousel-card');
+          if (!card) return;
+          var cardWidth = card.offsetWidth + 20;
+          // If near the end, loop back to start
+          if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 10) {
+            track.scrollTo({ left: 0, behavior: 'smooth' });
+          } else {
+            track.scrollBy({ left: cardWidth, behavior: 'smooth' });
+          }
+        }, 3000);
+      }
+      function stopAuto() { clearInterval(autoScrollId); }
+      track.addEventListener('mouseenter', stopAuto);
+      track.addEventListener('mouseleave', startAuto);
+      track.addEventListener('touchstart', stopAuto);
+      track.addEventListener('touchend', function() { setTimeout(startAuto, 3000); });
+      startAuto();
+    })();
 
     // FAQ Accordion
     function toggleFaq(btn) {
