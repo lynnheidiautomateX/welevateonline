@@ -93,6 +93,12 @@ document.querySelectorAll('.nav-links a').forEach(link => {
 });
 
 // ===== WORKSHOP FORM =====
+function selectType(btn) {
+  document.querySelectorAll('.type-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  document.getElementById('typeError').style.display = 'none';
+}
+
 function togglePill(btn) {
   btn.classList.toggle('active');
   document.getElementById('toolError').style.display = 'none';
@@ -119,12 +125,20 @@ function handleWorkshopSubmit(e) {
   });
   if (otherTool) selectedTools.push(otherTool);
 
+  // Collect workshop type
+  var typeBtn = document.querySelector('.type-btn.active');
+  var workshopType = typeBtn ? typeBtn.getAttribute('data-type') : '';
+
   // Collect skill level
   var skillBtn = document.querySelector('.skill-btn.active');
   var skillLevel = skillBtn ? skillBtn.getAttribute('data-level') : '';
 
   // Validate
   var valid = true;
+  if (!workshopType) {
+    document.getElementById('typeError').style.display = 'block';
+    valid = false;
+  }
   if (selectedTools.length === 0) {
     document.getElementById('toolError').style.display = 'block';
     valid = false;
@@ -160,6 +174,7 @@ function handleWorkshopSubmit(e) {
   console.log('Workshop booking:', {
     name: name,
     email: email,
+    workshopType: workshopType,
     tools: selectedTools,
     skillLevel: skillLevel,
     goal: goal,

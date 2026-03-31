@@ -305,6 +305,24 @@
             <input type="email" id="wsEmail" placeholder="you@example.com" autocomplete="email" required>
           </div>
 
+          <!-- Workshop Type -->
+          <div class="form-group">
+            <label>Who is the workshop for?</label>
+            <div class="workshop-type-btns" id="workshopType">
+              <button type="button" class="type-btn" data-type="individual" onclick="selectType(this)">
+                <span class="type-icon">&#128100;</span>
+                <span class="type-label">Just Me</span>
+                <span class="type-desc">1-on-1 session</span>
+              </button>
+              <button type="button" class="type-btn" data-type="team" onclick="selectType(this)">
+                <span class="type-icon">&#128101;</span>
+                <span class="type-label">Team / Group</span>
+                <span class="type-desc">2+ people</span>
+              </button>
+            </div>
+            <p class="form-error" id="typeError" style="display:none;">Please select who the workshop is for</p>
+          </div>
+
           <!-- Tool Selection -->
           <div class="form-group">
             <label>Which tools do you need help with?</label>
