@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.elevateonlinesuccess.com/sitemap.xml
+Sitemap: https://elevateonlinesuccess.com/sitemap.xml
