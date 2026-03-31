@@ -634,14 +634,15 @@ footer a {
 }
 
 .quiz-container {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-subtle);
+  background: #1a1a3a;
+  border: 1px solid rgba(168, 85, 247, 0.3);
   border-radius: 20px;
   padding: 2.5rem 2rem;
   max-width: 520px;
   width: 100%;
   position: relative;
   animation: fadeUp 0.4s ease-out;
+  box-shadow: 0 0 60px rgba(168, 85, 247, 0.15), 0 20px 60px rgba(0, 0, 0, 0.5);
 }
 
 .quiz-close {
