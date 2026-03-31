@@ -43,7 +43,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=3">
+  <link rel="stylesheet" href="styles.css?v=4">
 </head>
 <body>
 
@@ -56,7 +56,7 @@
       <a href="#how-it-works">How it Works</a>
       <a href="#what-you-build">What You Can Build</a>
       <a href="#faq">FAQ</a>
-      <a href="#host">Book a Workshop</a>
+      <a href="#workshop-form">Book a Workshop</a>
       <a href="#" class="nav-cta" onclick="openQuiz(); return false;">Take the Quiz</a>
     </div>
     <button class="mobile-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Toggle menu">&#9776;</button>
@@ -165,7 +165,6 @@
       <p class="section-desc">No code needed. Just describe what you want and AI builds it. Here's what women in our community are creating:</p>
 
       <div class="carousel-wrapper">
-        <button class="carousel-btn prev" onclick="scrollCarousel(-1)" aria-label="Scroll left">&larr;</button>
         <div class="carousel-track" id="carouselTrack">
           <div class="carousel-card">
             <div class="card-emoji" aria-hidden="true">&#127916;</div>
@@ -203,7 +202,6 @@
             <p>The only limit is what you can describe. You're one session away from a working prototype.</p>
           </div>
         </div>
-        <button class="carousel-btn next" onclick="scrollCarousel(1)" aria-label="Scroll right">&rarr;</button>
       </div>
     </div>
   </section>
@@ -286,8 +284,81 @@
         </div>
       </div>
 
-      <div class="host-cta">
-        <a href="mailto:support@lynnheidi.com?subject=Workshop%20Inquiry&body=Hi%20Heidi,%20I'm%20interested%20in%20hosting%20a%20workshop%20for%20my%20group." class="btn-primary">Join Waiting List</a>
+      <!-- BOOK A WORKSHOP FORM -->
+      <div class="workshop-form-wrapper" id="workshop-form">
+        <div class="workshop-form-header">
+          <div class="workshop-form-icon">&#128218;</div>
+          <h3>Book a Workshop</h3>
+          <p>Tell us which tools you need help with and we'll create a personalized workshop just for you.</p>
+        </div>
+
+        <form id="workshopForm" onsubmit="return handleWorkshopSubmit(event)">
+          <!-- Name -->
+          <div class="form-group">
+            <label for="wsName">Your Name</label>
+            <input type="text" id="wsName" placeholder="e.g. Lynn" required>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label for="wsEmail">Email Address</label>
+            <input type="email" id="wsEmail" placeholder="you@example.com" autocomplete="email" required>
+          </div>
+
+          <!-- Tool Selection -->
+          <div class="form-group">
+            <label>Which tools do you need help with?</label>
+            <p class="form-hint">Select all that apply</p>
+            <div class="tool-pills" id="toolPills">
+              <button type="button" class="tool-pill" data-tool="Claude" onclick="togglePill(this)">Claude</button>
+              <button type="button" class="tool-pill" data-tool="Claude Co-Work" onclick="togglePill(this)">Claude Co-Work</button>
+              <button type="button" class="tool-pill" data-tool="Claude Code" onclick="togglePill(this)">Claude Code</button>
+              <button type="button" class="tool-pill" data-tool="Canva" onclick="togglePill(this)">Canva</button>
+              <button type="button" class="tool-pill" data-tool="ChatGPT" onclick="togglePill(this)">ChatGPT</button>
+              <button type="button" class="tool-pill" data-tool="Codex" onclick="togglePill(this)">Codex</button>
+              <button type="button" class="tool-pill" data-tool="APIs" onclick="togglePill(this)">APIs</button>
+            </div>
+            <input type="text" id="wsOtherTool" placeholder="Other tool not listed above...">
+            <p class="form-error" id="toolError" style="display:none;">Please select at least one tool or type your own</p>
+          </div>
+
+          <!-- Skill Level -->
+          <div class="form-group">
+            <label>Your Skill Level</label>
+            <div class="skill-levels" id="skillLevels">
+              <button type="button" class="skill-btn" data-level="beginner" onclick="selectSkill(this)">
+                <span class="skill-label">Beginner</span>
+                <span class="skill-desc">Just getting started</span>
+              </button>
+              <button type="button" class="skill-btn" data-level="intermediate" onclick="selectSkill(this)">
+                <span class="skill-label">Intermediate</span>
+                <span class="skill-desc">Know the basics</span>
+              </button>
+              <button type="button" class="skill-btn" data-level="advanced" onclick="selectSkill(this)">
+                <span class="skill-label">Advanced</span>
+                <span class="skill-desc">Ready to go deeper</span>
+              </button>
+            </div>
+            <p class="form-error" id="skillError" style="display:none;">Please select your skill level</p>
+          </div>
+
+          <!-- Goal -->
+          <div class="form-group">
+            <label for="wsGoal">What do you want to accomplish? <span class="label-optional">(optional)</span></label>
+            <textarea id="wsGoal" rows="3" placeholder="e.g. I want to learn how to use Claude Code to build my website faster..."></textarea>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" id="wsSubmitBtn" class="btn-primary workshop-submit">Book My Workshop</button>
+          <p class="form-footer">We'll review your request and reach out within 48 hours to schedule your personalized workshop.</p>
+        </form>
+
+        <!-- Success state -->
+        <div id="workshopSuccess" style="display:none; text-align:center; padding:3rem 1rem;">
+          <div style="width:64px; height:64px; border-radius:50%; background:rgba(168,85,247,0.15); display:flex; align-items:center; justify-content:center; margin:0 auto 1.25rem; font-size:1.75rem;">&#10003;</div>
+          <h3 style="font-size:1.5rem; font-weight:800; margin-bottom:0.5rem;">You're all set!</h3>
+          <p style="color:var(--text-secondary); max-width:320px; margin:0 auto;">Your workshop request has been received. Check your email for next steps.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -350,7 +421,7 @@
     </div>
   </div>
 
-  <script src="script.js?v=4"></script>
+  <script src="script.js?v=5"></script>
   <script>
     // Quiz inline backup in case script.js has loading issues
     if (typeof openQuiz === 'undefined') {

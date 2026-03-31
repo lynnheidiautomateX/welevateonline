@@ -352,27 +352,7 @@ section { position: relative; z-index: 1; }
 .carousel-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
 .carousel-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
 
-.carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 1px solid var(--border-subtle);
-  background: rgba(13, 13, 26, 0.9);
-  color: white;
-  font-size: 1.2rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 5;
-  transition: background 0.2s;
-}
-.carousel-btn:hover { background: rgba(168, 85, 247, 0.3); }
-.carousel-btn.prev { left: 0; }
-.carousel-btn.next { right: 0; }
+.carousel-btn { display: none; }
 
 /* ===== FAQ ===== */
 .faq { padding: 6rem 0; }
@@ -496,6 +476,209 @@ section { position: relative; z-index: 1; }
   cursor: pointer;
 }
 .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+
+/* ===== WORKSHOP FORM ===== */
+.workshop-form-wrapper {
+  max-width: 600px;
+  margin: 3rem auto 0;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+}
+
+.workshop-form-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.workshop-form-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.workshop-form-header h3 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.workshop-form-header p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.label-optional {
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.form-hint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group textarea {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--border-subtle);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--accent-purple);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.form-group textarea {
+  resize: none;
+}
+
+.form-error {
+  color: var(--accent-pink);
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+/* Tool pills */
+.tool-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.tool-pill {
+  padding: 0.5rem 1.15rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid var(--border-subtle);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-secondary);
+}
+
+.tool-pill:hover {
+  border-color: rgba(168, 85, 247, 0.4);
+  background: rgba(168, 85, 247, 0.08);
+  color: var(--text-primary);
+}
+
+.tool-pill.active {
+  background: var(--gradient-purple);
+  border-color: var(--accent-purple);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
+}
+
+.tool-pill.active::before {
+  content: '\2713 ';
+  font-weight: 700;
+}
+
+/* Skill level buttons */
+.skill-levels {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.skill-btn {
+  padding: 0.85rem 0.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+}
+
+.skill-btn:hover {
+  border-color: rgba(168, 85, 247, 0.4);
+  background: rgba(168, 85, 247, 0.08);
+}
+
+.skill-btn.active {
+  background: var(--gradient-purple);
+  border-color: var(--accent-purple);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
+}
+
+.skill-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.skill-desc {
+  display: block;
+  font-size: 0.65rem;
+  margin-top: 0.15rem;
+  opacity: 0.7;
+}
+
+.skill-btn.active .skill-desc {
+  opacity: 0.9;
+}
+
+/* Submit */
+.workshop-submit {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 1rem 2rem;
+  font-size: 1.05rem;
+}
+
+.form-footer {
+  text-align: center;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 0.75rem;
+}
+
+@media (max-width: 768px) {
+  .workshop-form-wrapper {
+    padding: 2rem 1.25rem;
+  }
+  .skill-levels {
+    grid-template-columns: 1fr;
+  }
+}
 
 /* ===== STAY CONNECTED ===== */
 .stay-connected {

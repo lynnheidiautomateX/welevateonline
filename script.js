@@ -23,39 +23,50 @@ function handleSignup(e) {
   return false;
 }
 
-// Carousel manual scroll
-function scrollCarousel(direction) {
-  const track = document.getElementById('carouselTrack');
-  if (!track) return;
-  const card = track.querySelector('.carousel-card');
-  if (!card) return;
-  const cardWidth = card.offsetWidth + 20;
-  track.scrollBy({ left: direction * cardWidth * 2, behavior: 'smooth' });
-}
-
-// Continuous smooth carousel auto-scroll
+// Continuous seamless carousel auto-scroll
 (function() {
   var track = document.getElementById('carouselTrack');
   if (!track) return;
+
+  // Clone all cards and append for seamless looping
+  var cards = track.querySelectorAll('.carousel-card');
+  cards.forEach(function(card) {
+    var clone = card.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    track.appendChild(clone);
+  });
+
   var speed = 0.5;
-  var animId = null;
   var paused = false;
+  // Width of original cards (half the track content)
+  var originalWidth = 0;
+
+  function measureOriginal() {
+    originalWidth = 0;
+    var gap = 20; // 1.25rem gap
+    for (var i = 0; i < cards.length; i++) {
+      originalWidth += cards[i].offsetWidth + gap;
+    }
+  }
+  measureOriginal();
+  window.addEventListener('resize', measureOriginal);
 
   function step() {
     if (!paused) {
       track.scrollLeft += speed;
-      if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 1) {
-        track.scrollLeft = 0;
+      // When we've scrolled past all original cards, silently reset
+      if (track.scrollLeft >= originalWidth) {
+        track.scrollLeft -= originalWidth;
       }
     }
-    animId = requestAnimationFrame(step);
+    requestAnimationFrame(step);
   }
 
   track.addEventListener('mouseenter', function() { paused = true; });
   track.addEventListener('mouseleave', function() { paused = false; });
   track.addEventListener('touchstart', function() { paused = true; });
   track.addEventListener('touchend', function() { setTimeout(function() { paused = false; }, 2000); });
-  animId = requestAnimationFrame(step);
+  requestAnimationFrame(step);
 })();
 
 // FAQ Accordion
@@ -80,6 +91,88 @@ document.querySelectorAll('.nav-links a').forEach(link => {
     document.getElementById('navLinks').classList.remove('open');
   });
 });
+
+// ===== WORKSHOP FORM =====
+function togglePill(btn) {
+  btn.classList.toggle('active');
+  document.getElementById('toolError').style.display = 'none';
+}
+
+function selectSkill(btn) {
+  document.querySelectorAll('.skill-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  document.getElementById('skillError').style.display = 'none';
+}
+
+function handleWorkshopSubmit(e) {
+  e.preventDefault();
+
+  var name = document.getElementById('wsName').value.trim();
+  var email = document.getElementById('wsEmail').value.trim();
+  var otherTool = document.getElementById('wsOtherTool').value.trim();
+  var goal = document.getElementById('wsGoal').value.trim();
+
+  // Collect selected tools
+  var selectedTools = [];
+  document.querySelectorAll('.tool-pill.active').forEach(function(pill) {
+    selectedTools.push(pill.getAttribute('data-tool'));
+  });
+  if (otherTool) selectedTools.push(otherTool);
+
+  // Collect skill level
+  var skillBtn = document.querySelector('.skill-btn.active');
+  var skillLevel = skillBtn ? skillBtn.getAttribute('data-level') : '';
+
+  // Validate
+  var valid = true;
+  if (selectedTools.length === 0) {
+    document.getElementById('toolError').style.display = 'block';
+    valid = false;
+  }
+  if (!skillLevel) {
+    document.getElementById('skillError').style.display = 'block';
+    valid = false;
+  }
+  if (!valid) return false;
+
+  var btn = document.getElementById('wsSubmitBtn');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+
+  // Send to MailerLite (same list as waitlist signup)
+  var formData = new FormData();
+  formData.append('fields[email]', email);
+  formData.append('fields[name]', name);
+  formData.append('ml-submit', '1');
+  formData.append('anticsrf', 'true');
+
+  fetch('https://assets.mailerlite.com/jsonp/2211868/forms/183217235853051090/subscribe', {
+    method: 'POST',
+    body: formData,
+    mode: 'no-cors'
+  }).then(function() {
+    showWorkshopSuccess();
+  }).catch(function() {
+    showWorkshopSuccess();
+  });
+
+  // Log full details for review
+  console.log('Workshop booking:', {
+    name: name,
+    email: email,
+    tools: selectedTools,
+    skillLevel: skillLevel,
+    goal: goal,
+    submittedAt: new Date().toISOString()
+  });
+
+  return false;
+}
+
+function showWorkshopSuccess() {
+  document.getElementById('workshopForm').style.display = 'none';
+  document.getElementById('workshopSuccess').style.display = 'block';
+}
 
 // ===== QUIZ =====
 var quizData = [
