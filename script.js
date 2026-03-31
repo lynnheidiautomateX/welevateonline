@@ -170,8 +170,9 @@ function handleWorkshopSubmit(e) {
     showWorkshopSuccess();
   });
 
-  // Log full details for review
-  console.log('Workshop booking:', {
+  // Send all fields to Google Sheets
+  var SHEETS_WEBHOOK = 'https://script.google.com/macros/s/AKfycbz2tR6_xfsDw6IiF2Vgj7_0Ii97AVzt9cQQ2gd3J4ILIFOARgmJZmJPBKQ2fZGdb9K_/exec';
+  var payload = {
     name: name,
     email: email,
     workshopType: workshopType,
@@ -179,7 +180,18 @@ function handleWorkshopSubmit(e) {
     skillLevel: skillLevel,
     goal: goal,
     submittedAt: new Date().toISOString()
-  });
+  };
+
+  if (SHEETS_WEBHOOK.indexOf('script.google.com') !== -1) {
+    fetch(SHEETS_WEBHOOK, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(function() {});
+  }
+
+  console.log('Workshop booking:', payload);
 
   return false;
 }
