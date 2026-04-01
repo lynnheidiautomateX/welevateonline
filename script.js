@@ -23,38 +23,58 @@ function handleSignup(e) {
   return false;
 }
 
-// Continuous seamless carousel auto-scroll
+// Continuous seamless carousel auto-scroll (desktop only)
 (function() {
   var track = document.getElementById('carouselTrack');
   if (!track) return;
 
+  function isMobile() { return window.innerWidth <= 768; }
+
   // Clone all cards and append for seamless looping
-  var cards = track.querySelectorAll('.carousel-card');
+  var cards = Array.from(track.querySelectorAll('.carousel-card'));
+  var clones = [];
   cards.forEach(function(card) {
     var clone = card.cloneNode(true);
     clone.setAttribute('aria-hidden', 'true');
+    clone.classList.add('carousel-clone');
     track.appendChild(clone);
+    clones.push(clone);
   });
 
   var speed = 0.5;
   var paused = false;
-  // Width of original cards (half the track content)
   var originalWidth = 0;
+  var animating = false;
 
   function measureOriginal() {
     originalWidth = 0;
-    var gap = 20; // 1.25rem gap
+    var gap = 20;
     for (var i = 0; i < cards.length; i++) {
       originalWidth += cards[i].offsetWidth + gap;
     }
   }
-  measureOriginal();
-  window.addEventListener('resize', measureOriginal);
+
+  function showClones() { clones.forEach(function(c) { c.style.display = ''; }); }
+  function hideClones() { clones.forEach(function(c) { c.style.display = 'none'; }); }
+
+  function startCarousel() {
+    if (animating) return;
+    animating = true;
+    showClones();
+    measureOriginal();
+    requestAnimationFrame(step);
+  }
+
+  function stopCarousel() {
+    animating = false;
+    hideClones();
+    track.scrollLeft = 0;
+  }
 
   function step() {
+    if (!animating || isMobile()) { stopCarousel(); return; }
     if (!paused) {
       track.scrollLeft += speed;
-      // When we've scrolled past all original cards, silently reset
       if (track.scrollLeft >= originalWidth) {
         track.scrollLeft -= originalWidth;
       }
@@ -62,11 +82,22 @@ function handleSignup(e) {
     requestAnimationFrame(step);
   }
 
+  function handleResize() {
+    if (isMobile()) {
+      stopCarousel();
+    } else {
+      startCarousel();
+    }
+  }
+
+  window.addEventListener('resize', handleResize);
   track.addEventListener('mouseenter', function() { paused = true; });
   track.addEventListener('mouseleave', function() { paused = false; });
   track.addEventListener('touchstart', function() { paused = true; });
   track.addEventListener('touchend', function() { setTimeout(function() { paused = false; }, 2000); });
-  requestAnimationFrame(step);
+
+  // Init
+  handleResize();
 })();
 
 // FAQ Accordion

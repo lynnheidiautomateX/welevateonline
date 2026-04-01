@@ -1,3 +1,33 @@
+/* Self-hosted Inter font */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/inter-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('fonts/inter-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('fonts/inter-700.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('fonts/inter-800.woff2') format('woff2');
+}
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
@@ -726,12 +756,9 @@ section { position: relative; z-index: 1; }
 }
 
 @media (max-width: 768px) {
-  .workshop-form-wrapper {
-    padding: 2rem 1.25rem;
-  }
-  .skill-levels {
-    grid-template-columns: 1fr;
-  }
+  .workshop-form-wrapper { padding: 2rem 1.25rem; }
+  .skill-levels { grid-template-columns: 1fr; }
+  .workshop-type-btns { grid-template-columns: 1fr; }
 }
 
 /* ===== STAY CONNECTED ===== */
@@ -784,6 +811,17 @@ section { position: relative; z-index: 1; }
 }
 .btn-email:hover { opacity: 0.9; transform: translateY(-1px); }
 
+.btn-instagram {
+  background: linear-gradient(135deg, #e1306c, #833ab4);
+  color: white;
+  padding: 0.75rem 1.75rem;
+  border-radius: 10px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.btn-instagram:hover { opacity: 0.9; transform: translateY(-1px); }
+
 /* ===== FOOTER ===== */
 footer {
   padding: 3rem 2rem;
@@ -817,17 +855,74 @@ footer a {
   }
   .mobile-toggle { display: block; }
 
+  .hero { padding: 6rem 1.25rem 3rem; min-height: auto; }
+  .hero h1 { font-size: clamp(1.75rem, 7vw, 2.5rem); }
+  .hero-sub { font-size: 1rem; margin: 0 auto 2rem; }
   .hero-cards { grid-template-columns: 1fr; }
+
+  .container { padding: 0 1.25rem; }
+  .section-title { font-size: clamp(1.5rem, 5vw, 2rem); margin-bottom: 2rem; }
+  .section-desc { font-size: 0.9rem; margin: -1rem auto 2rem; }
 
   .steps { gap: 0.25rem; }
   .step { width: 100px; }
   .step-icon { width: 60px; height: 60px; font-size: 1.5rem; }
   .step-arrow { display: none; }
 
-  .host-grid { grid-template-columns: 1fr; }
+  .how-it-works { padding: 4rem 0; }
+  .what-you-build { padding: 4rem 0; }
+  .faq { padding: 4rem 0; }
+  .host-workshop { padding: 4rem 0; }
 
+  .host-grid { grid-template-columns: 1fr; }
+  .host-card { padding: 1.5rem; }
+
+  .connected-box { padding: 2rem 1.25rem; }
+  .connected-box h2 { font-size: 1.35rem; }
   .connected-btns { flex-direction: column; align-items: center; }
+  .connected-btns a { width: 100%; text-align: center; }
+
   .who-grid { grid-template-columns: 1fr !important; }
+
+  /* Stack carousel cards vertically on mobile */
+  .carousel-track {
+    flex-direction: column;
+    gap: 1rem;
+    overflow-x: visible;
+    padding: 0 1.25rem;
+  }
+  .carousel-card {
+    min-width: unset;
+    width: 100%;
+    padding: 1.5rem 1.25rem;
+  }
+
+  .faq-question { padding: 1rem 1.25rem; font-size: 0.9rem; }
+  .faq-answer-inner { padding: 0 1.25rem 1rem; font-size: 0.85rem; }
+
+  footer { padding: 2rem 1.25rem; }
+}
+
+/* Small phones */
+@media (max-width: 380px) {
+  .hero h1 { font-size: 1.5rem; }
+  .hero-sub { font-size: 0.9rem; }
+  .steps { gap: 0; }
+  .step { width: 80px; }
+  .step-icon { width: 50px; height: 50px; font-size: 1.25rem; }
+  .step h4 { font-size: 0.75rem; }
+  .step p { font-size: 0.65rem; }
+  .carousel-card { min-width: unset; }
+  .skill-levels { grid-template-columns: 1fr; }
+}
+
+/* Touch-friendly tap targets (44px minimum) */
+@media (max-width: 768px) {
+  .btn-primary, .btn-discord, .btn-email, .btn-instagram { min-height: 48px; display: flex; align-items: center; justify-content: center; }
+  .tool-pill { min-height: 44px; display: inline-flex; align-items: center; }
+  .type-btn, .skill-btn { min-height: 48px; }
+  .faq-question { min-height: 48px; }
+  .nav-links.open a { min-height: 44px; display: flex; align-items: center; }
 }
 
 /* Focus visible for keyboard navigation */
